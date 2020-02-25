@@ -1,5 +1,3 @@
-require('pry')
-
 class Bus
 
   attr_reader :route_number, :destination, :passengers
@@ -30,9 +28,9 @@ class Bus
     @passengers.clear()
   end
 
-  def pick_from_stop(bus_stop1)
-    binding.pry
-    @bus_stop1.queue.each {|person| @passengers.push(person)}
+  def pick_from_stop(bus_stop)
+    bus_stop.queue.each {|person| add_passenger(person)}
+    bus_stop.clear_the_queue
 
   end
 end
