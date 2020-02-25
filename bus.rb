@@ -1,3 +1,5 @@
+require('pry')
+
 class Bus
 
   attr_reader :route_number, :destination, :passengers
@@ -26,5 +28,11 @@ class Bus
 
   def remove_all_passengers()
     @passengers.clear()
+  end
+
+  def pick_from_stop(bus_stop1)
+    binding.pry
+    @bus_stop1.queue.each {|person| @passengers.push(person)}
+
   end
 end

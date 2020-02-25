@@ -4,12 +4,18 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 require_relative('../bus.rb')
 require_relative('../person.rb')
+require_relative('../bus_stop.rb')
+
+require('pry')
+
 
 class BusTest < Minitest::Test
 
   def setup
     @bus_22 = Bus.new("22", "Ocean Terminal")
     @passenger1 = Person.new("Juan", 22)
+    @bus_stop1 = BusStop.new("Elm Row")
+    @person1 = Person.new("Keith", 35)
   end
 
   def test_get_route_number()
@@ -46,6 +52,16 @@ class BusTest < Minitest::Test
       @bus_22.add_passenger(@passenger1)
       @bus_22.remove_all_passengers()
     assert_equal(0, @bus_22.number_of_passengers)
+  end
+
+  def test_pick_from_stop()
+    @bus_stop1.add_person_to_queue(@person1)
+    @bus_stop1.add_person_to_queue(@person1)
+    @bus_stop1.add_person_to_queue(@person1)
+    @bus_stop1.add_person_to_queue(@person1)
+    @bus_22.pick_from_stop(@bus_stop1)
+    assert_equal(4, @bus_22.number_of_passengers)
+    assert_equal(0, @bus_stop1.queue_length)
   end
 
 
